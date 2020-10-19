@@ -1,0 +1,6 @@
+C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\bin\Debug\BinaryKnapsack.exe.config
+C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\bin\Debug\BinaryKnapsack.exe
+C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\bin\Debug\BinaryKnapsack.pdb
+C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\obj\Debug\BinaryKnapsack.csproj.CoreCompileInputs.cache
+C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\obj\Debug\BinaryKnapsack.exe
+C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\obj\Debug\BinaryKnapsack.pdb
