@@ -11,7 +11,7 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             this.MaxEFOs = maxEFOs;
         }
 
-        public override void Execute(Knapsack theKnapsack, Random theAleatory, Solution s=null)
+        public override void Execute(Knapsack theKnapsack, Random theAleatory)
         {
             this.MyKnapsack = theKnapsack;
             this.MyAleatory = theAleatory;
@@ -19,8 +19,7 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             Curve = new List<double>();
 
             // Hill Climbing
-            if (s==null)
-                s = new Solution(this);
+            var s = new Solution(this);
 
             s.RandomInitialization();
             Curve.Add(s.Fitness);

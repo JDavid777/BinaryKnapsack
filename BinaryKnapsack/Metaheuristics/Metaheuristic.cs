@@ -18,6 +18,6 @@ namespace BinaryKnapsack.Metaheuristics
 
         public List<double> Curve;
 
-        public abstract void Execute(Knapsack theKnapsack, Random theAleatory,Solution s=null);
+        public abstract void Execute(Knapsack theKnapsack, Random theAleatory);
     }
 }

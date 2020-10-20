@@ -21,7 +21,7 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             this.MaxEFOs = MaxEFOs;
             this.RegulationParam = regulationParam;
         }
-        public override void Execute(Knapsack theKnapsack, Random theAleatory, Solution s = null)
+        public override void Execute(Knapsack theKnapsack, Random theAleatory)
         {
             this.MyKnapsack = theKnapsack;
             this.CurrentEFOs=0;
@@ -31,13 +31,16 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
 
             int M = theKnapsack.TotalItems;
             this.Costs = new double[M];
+
+            //Calculo del vector de costos
             for (int i = 0; i < M; i++)
             {
                 this.Costs[i] = 1.0 / this.MyKnapsack.Density(i);
+                //this.Costs[i] = this.MyKnapsack.Weight(i);
             }
 
             //Start GLS
-            s = new Solution(this);
+            var s = new Solution(this);
             s.RandomInitialization();
             this.Curve.Add(s.Fitness);
             s.AlteredFitness = s.Fitness;
@@ -88,7 +91,7 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
         private int MaxEFOsLS()
         {
             int remainingEFOs = this.MaxEFOs - this.CurrentEFOs;
-            return remainingEFOs >= 5 ? 5 : remainingEFOs;
+            return remainingEFOs >= 50 ? 50 : remainingEFOs;
         }
 
         /// <summary>

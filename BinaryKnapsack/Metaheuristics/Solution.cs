@@ -59,8 +59,10 @@ namespace BinaryKnapsack.Metaheuristics
             LeaveOnlyValidUnselectedItems(unselected, myWeight);
 
             // Here was the ERROR ... I corrected it by replacing "selected" with "unselected"
-            TurnOnRandom(unselected, ref myWeight);
-
+            if (_myContainer.MyAleatory.NextDouble() < 0.2)
+                TurnOnRandom(unselected, ref myWeight);
+            else
+                TurnOnDensity(unselected, ref myWeight); //Prender las sol que estan apagadas que quepan en la mochilay tengan mayor density
             Complete(unselected, ref myWeight);
 
             Evaluate();

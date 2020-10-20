@@ -10,7 +10,7 @@ namespace BinaryKnapsack
     {
         static void Main()
         {
-            const int maxEFOs = 5;
+            const int maxEFOs = 1000;
             const int maximasRepeticiones = 30;
 
             var problemsList = new List<Knapsack>
@@ -64,5 +64,14 @@ namespace BinaryKnapsack
             }
             Console.ReadKey();
         }
+        //private static double StandarDeviation(List<double> fitnessList)        
+        //{
+        //    double sum = 0;
+        //    double averge = fitnessList.Count;
+        //    for (int i = 0; i < fitnessList.Count; i++)
+        //    {
+
+        //    }
+        //}
     }
 }

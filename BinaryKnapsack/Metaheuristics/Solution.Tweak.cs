@@ -54,6 +54,30 @@ namespace BinaryKnapsack.Metaheuristics
             myWeight -= _myContainer.MyKnapsack.Weight(posTurnOff);
         }
 
+        public void TurnOnDensity(List<int> unselected, ref double myWeight)
+        {
+            if (unselected.Count == 0) return;
+
+            var byDensity = new List<KeyValuePair<int, double>>();
+            foreach (var posUnsel in unselected)
+            {
+                var den = _myContainer.MyKnapsack.Density(posUnsel);
+                byDensity.Add(new KeyValuePair<int, double>(posUnsel, den));
+            }
+            byDensity.Sort((x, y) => -1 * x.Value.CompareTo(y.Value));
+            var restrictedListSize = (byDensity.Count / 2);
+            if (restrictedListSize == 0) restrictedListSize = 1;
+        
+                var pos = _myContainer.MyAleatory.Next(restrictedListSize);
+            
+                    var posTurnOn = byDensity[pos].Key;
+                    unselected.Remove(posTurnOn);
+                    Position[posTurnOn] = 1;
+                    myWeight += _myContainer.MyKnapsack.Weight(posTurnOn);
+
+           
+        }
+
         public void TurnOnRandom(List<int> unselected, ref double myWeight)
         {
             if (unselected.Count != 0) // Unselected is not empty

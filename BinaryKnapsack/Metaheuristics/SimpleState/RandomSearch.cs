@@ -11,14 +11,14 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             MaxEFOs = maxEFOs;
         }
 
-        public override void Execute(Knapsack theKnapsack, Random theAleatory,Solution s=null)
+        public override void Execute(Knapsack theKnapsack, Random theAleatory)
         {
             MyKnapsack = theKnapsack;
             MyAleatory = theAleatory;
             CurrentEFOs = 0;
             Curve = new List<double>();
 
-            s = new Solution(this);
+            var s = new Solution(this);
             s.RandomInitialization();
             Curve.Add(s.Fitness);
 
