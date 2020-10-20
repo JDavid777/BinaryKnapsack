@@ -45,15 +45,18 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             this.MyAleatory = theAleatory;
             this.CurrentEFOs = 0;
             Curve = new List<double>();
+            
             s._myContainer = this;
+            s.AlteredFunction(penalties, regulationParam);
             // Hill Climbing
             Curve.Add(s.Fitness);
 
-            while (this.CurrentEFOs < MaxEFOs) 
+            while (this.CurrentEFOs < MaxEFOs && Math.Abs(s.Fitness - MyKnapsack.OptimalKnown) > 1e-10) 
             {
                 var r = new Solution(s);
                 r.Tweak();
                 r.AlteredFunction(penalties, regulationParam);
+                
                 if (r.AlteredFitness > s.AlteredFitness)
                     s = new Solution(r);
 

@@ -16,7 +16,7 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
         private double[] Utilities;
         private double[] Costs;
 
-        public GuidedLocalSearch(int MaxEFOs, double regulationParam)
+        public GuidedLocalSearch(int MaxEFOs, double regulationParam=0.5)
         {
             this.MaxEFOs = MaxEFOs;
             this.RegulationParam = regulationParam;
@@ -59,15 +59,20 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             {
                 this.Penalties[i] = 0;
             }
-            
+
+            //De acuerdo a la literatura se toma un óptimo local dividido entre el número de características.
+            this.RegulationParam = (s.Fitness / M); 
 
             while (this.CurrentEFOs < this.MaxEFOs)
             {
+
+                s.AlteredFunction(Penalties, RegulationParam);
 
                 HillClimbing LocalSearch = new HillClimbing(this.MaxEFOsLS());
 
                 LocalSearch.Execute(theKnapsack, this.MyAleatory, s, this.Penalties, this.RegulationParam);
                 s = LocalSearch.MyBestSolution;
+                s._myContainer = this;
 
                 this.CurrentEFOs += LocalSearch.CurrentEFOs;
 
@@ -94,7 +99,7 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
         private int MaxEFOsLS()
         {
             int remainingEFOs = this.MaxEFOs - this.CurrentEFOs;
-            return remainingEFOs >= 50 ? 50 : remainingEFOs;
+            return remainingEFOs >= 20 ? 20 : remainingEFOs;
         }
 
         /// <summary>

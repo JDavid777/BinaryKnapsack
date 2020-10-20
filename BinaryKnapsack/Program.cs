@@ -38,7 +38,7 @@ namespace BinaryKnapsack
             var mhList = new List<Metaheuristic>()
             {
                 new HillClimbing(maxEFOs),
-                new RandomSearch(maxEFOs),
+                //new RandomSearch(maxEFOs),
                 new GuidedLocalSearch(maxEFOs, 0.5)
             };
 
