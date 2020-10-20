@@ -105,13 +105,13 @@ namespace BinaryKnapsack.Metaheuristics
         public void AlteredFunction(double[] penalties, double regulationParam)
         {
             int m = penalties.Length;
-            double h = this.Fitness;
+            
             double sumatoria = 0;
             for (int i = 0; i < m; i++)
             {
                 sumatoria += penalties[i] * this.Position[i];
             }
-            h -= regulationParam * sumatoria;
+            double h = this.Fitness - regulationParam * sumatoria;
             this.AlteredFitness=h;
         }
     }

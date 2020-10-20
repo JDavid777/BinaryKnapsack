@@ -10,7 +10,7 @@ namespace BinaryKnapsack
     {
         static void Main()
         {
-            const int maxEFOs = 1000;
+            const int maxEFOs = 5;
             const int maximasRepeticiones = 30;
 
             var problemsList = new List<Knapsack>
@@ -37,7 +37,7 @@ namespace BinaryKnapsack
             {
                 new HillClimbing(maxEFOs),
                 new RandomSearch(maxEFOs),
-                new GuidedLocalSearch(0.1,maxEFOs)
+                new GuidedLocalSearch(maxEFOs)
             };
 
             Console.WriteLine($"{"Problem", 15} {"Best", 12} {"Hill Climbing", 19} {"Random Search", 19} {"Guided LS", 19}");

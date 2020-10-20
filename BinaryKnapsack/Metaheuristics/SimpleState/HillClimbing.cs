@@ -52,7 +52,6 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
 
             while (this.CurrentEFOs < MaxEFOs) 
             {
-                
                 var r = new Solution(s);
                 r.Tweak();
                 r.AlteredFunction(penalties, regulationParam);

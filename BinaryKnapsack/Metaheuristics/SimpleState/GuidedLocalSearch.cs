@@ -16,16 +16,15 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
         private double[] Utilities;
         private double[] Costs;
 
-        public GuidedLocalSearch(double regulationParam, int MaxEFOs)
+        public GuidedLocalSearch(int MaxEFOs, double regulationParam=0.5)
         {
             this.MaxEFOs = MaxEFOs;
-            this.CurrentEFOs = MaxEFOs;
             this.RegulationParam = regulationParam;
         }
-        public override void Execute(Knapsack theKnapsack, Random theAleatory, Solution s=null)
+        public override void Execute(Knapsack theKnapsack, Random theAleatory, Solution s = null)
         {
             this.MyKnapsack = theKnapsack;
-
+            this.CurrentEFOs=0;
             this.MyAleatory = theAleatory;
             Curve = new List<double>();
 
@@ -34,13 +33,10 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             this.Costs = new double[M];
             for (int i = 0; i < M; i++)
             {
-                this.Costs[i] = this.MyKnapsack.Weight(i);
+                this.Costs[i] = 1.0 / this.MyKnapsack.Density(i);
             }
-          
-            //Start GLS
-            var K = 0;
-            
 
+            //Start GLS
             s = new Solution(this);
             s.RandomInitialization();
             this.Curve.Add(s.Fitness);
@@ -50,25 +46,30 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             this.Indicators = new int[M];
             //Penalties Vector
             this.Penalties = new double[M];
+            //Utilities Vector
+            this.Utilities = new double[M];
 
             for (int i = 0; i < M; i++)
             {
                 this.Penalties[i] = 0;
             }
-           
-            while (this.CurrentEFOs>0)
-            {          
-                
-                HillClimbing LocalSearch=new HillClimbing(this.MaxEFOsLS()); 
-               
-                LocalSearch.Execute(theKnapsack, this.MyAleatory,s, this.Penalties,this.RegulationParam);
+            
+
+            while (this.CurrentEFOs < this.MaxEFOs)
+            {
+
+                HillClimbing LocalSearch = new HillClimbing(this.MaxEFOsLS());
+
+                LocalSearch.Execute(theKnapsack, this.MyAleatory, s, this.Penalties, this.RegulationParam);
                 s = LocalSearch.MyBestSolution;
-                this.CurrentEFOs-=LocalSearch.CurrentEFOs;
+
+                this.CurrentEFOs += LocalSearch.CurrentEFOs;
+
                 this.Indicators = s.Position;
+             
                 for (int i = 0; i < M; i++)
                 {
-                    this.Utilities = new double[M];
-                    this.Utilities[i] = this.Indicators[i] * (this.Costs[i] / (1 + this.Penalties[i]));
+                     this.Utilities[i] = this.Indicators[i] * (this.Costs[i] / (1 + this.Penalties[i]));
                 }
                 List<int> maxUtilities = this.MaxUtility();
                 foreach (var idx in maxUtilities)
@@ -77,11 +78,8 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
                 }
                 if (this.MyBestSolution.Fitness < s.Fitness)
                 {
-                    this.MyBestSolution = new  Solution(s);
+                    this.MyBestSolution = new Solution(s);
                 }
-               
-                
-
                 if (Math.Abs(this.MyBestSolution.Fitness - MyKnapsack.OptimalKnown) < 1e-10)
                     break;
             }
@@ -89,12 +87,10 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
 
         private int MaxEFOsLS()
         {
-            //if(this.CurrentEFOs>=20)
-            //    return (this.CurrentEFOs*20)/100;
-
-            return this.CurrentEFOs>=990 ? 990 : this.CurrentEFOs;
+            int remainingEFOs = this.MaxEFOs - this.CurrentEFOs;
+            return remainingEFOs >= 5 ? 5 : remainingEFOs;
         }
-     
+
         /// <summary>
         /// Retorna el indice en el que se encuentra el valor maximo de i utilidad
         /// </summary>
@@ -103,70 +99,54 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
         private List<int> MaxUtility()
         {
             double max = this.Utilities.Max();
+
             List<int> maxUtilities = new List<int>();
             for (int i = 0; i < this.Utilities.Length; i++)
             {
-                if (this.Utilities[i] == max){
+                if (this.Utilities[i] == max)
+                {
                     maxUtilities.Add(i);
-           
-            }
+
+                }
             }
             return maxUtilities;
         }
-        /// <summary>
-        /// Calculo de la funcion objetivo disminuida
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        private double AlteredFunction(Solution s)
-        {
-            int m = this.Penalties.Length;
-            double h = s.Fitness;
-            double sumatoria = 0;
-           
-            for (int i = 0; i < m; i++)
-            {
-                sumatoria += this.Penalties[i] * s.Position[i];
-            }
-            h -= this.RegulationParam * sumatoria;
-            return h;
-        }
-    }
-    //public override void Execute(Knapsack theKnapsack, Random theAleatory)
-    //{
 
-    //    int k = 0;
-    //    var s = new Solution(this);
-    //    int m = theKnapsack.TotalItems;
-    //    s.RandomInitialization();
-    //    int[] p = new int[m];
+        //public override void Execute(Knapsack theKnapsack, Random theAleatory)
+        //{
+
+        //    int k = 0;
+        //    var s = new Solution(this);
+        //    int m = theKnapsack.TotalItems;
+        //    s.RandomInitialization();
+        //    int[] p = new int[m];
 
 
-    //    for (int i = 0; i < m; i++)
-    //    {
-    //        p[i] = 0;
-    //    }
+        //    for (int i = 0; i < m; i++)
+        //    {
+        //        p[i] = 0;
+        //    }
 
-    //    //Minimizando o maximizando
+        //    //Minimizando o maximizando
 
-    //    s.Fitness = alteredFunction(s, 0.1, p);
-    //    while (CurrentEFOs < MaxEFOs)
-    //    {
-    //        //TODO: ASK TO THE TEACHER*
+        //    s.Fitness = alteredFunction(s, 0.1, p);
+        //    while (CurrentEFOs < MaxEFOs)
+        //    {
+        //        //TODO: ASK TO THE TEACHER*
 
-    //        //for (int i = 0; i < m; i++)
-    //        //{
-    //        //    sumatoria += p[i] * s.Position[i];
-    //        //}
-    //        //h -= lambda * sumatoria;
-    //        //s.Fitness = h;
+        //        //for (int i = 0; i < m; i++)
+        //        //{
+        //        //    sumatoria += p[i] * s.Position[i];
+        //        //}
+        //        //h -= lambda * sumatoria;
+        //        //s.Fitness = h;
 
-    //        HillClimbing BL = new HillClimbing(MaxEFOs);
-    //        //BL.Execute(theKnapsack, theAleatory, s);
-    //        var r = new Solution(BL.MyBestSolution);
+        //        HillClimbing BL = new HillClimbing(MaxEFOs);
+        //        //BL.Execute(theKnapsack, theAleatory, s);
+        //        var r = new Solution(BL.MyBestSolution);
 
 
-    //        /*Utilities*/
+        //        /*Utilities*/
         //        List<double> utilities = new List<double>();
         //        for (int i = 0; i < m; i++)
         //        {
@@ -191,3 +171,4 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
 
 
     }
+}
