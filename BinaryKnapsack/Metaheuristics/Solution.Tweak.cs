@@ -68,14 +68,12 @@ namespace BinaryKnapsack.Metaheuristics
             var restrictedListSize = (byDensity.Count / 2);
             if (restrictedListSize == 0) restrictedListSize = 1;
         
-                var pos = _myContainer.MyAleatory.Next(restrictedListSize);
+            var pos = _myContainer.MyAleatory.Next(restrictedListSize);
             
-                    var posTurnOn = byDensity[pos].Key;
-                    unselected.Remove(posTurnOn);
-                    Position[posTurnOn] = 1;
-                    myWeight += _myContainer.MyKnapsack.Weight(posTurnOn);
-
-           
+            var posTurnOn = byDensity[pos].Key;
+            unselected.Remove(posTurnOn);
+            Position[posTurnOn] = 1;
+            myWeight += _myContainer.MyKnapsack.Weight(posTurnOn);
         }
 
         public void TurnOnRandom(List<int> unselected, ref double myWeight)

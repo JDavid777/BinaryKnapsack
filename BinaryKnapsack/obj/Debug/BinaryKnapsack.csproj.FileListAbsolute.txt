@@ -5,3 +5,10 @@ C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\obj\Debug\B
 C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\obj\Debug\BinaryKnapsack.exe
 C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\obj\Debug\BinaryKnapsack.pdb
 C:\Users\jdavi\Source\Repos\JDavid777\Mochila-Binaria\BinaryKnapsack\obj\Debug\BinaryKnapsack.csprojAssemblyReference.cache
+C:\Users\jmfer\Documents\2020-1\METAHEURISTICAS\CÓDIGO\BinaryKnapsack\BinaryKnapsack\bin\Debug\BinaryKnapsack.exe.config
+C:\Users\jmfer\Documents\2020-1\METAHEURISTICAS\CÓDIGO\BinaryKnapsack\BinaryKnapsack\bin\Debug\BinaryKnapsack.exe
+C:\Users\jmfer\Documents\2020-1\METAHEURISTICAS\CÓDIGO\BinaryKnapsack\BinaryKnapsack\bin\Debug\BinaryKnapsack.pdb
+C:\Users\jmfer\Documents\2020-1\METAHEURISTICAS\CÓDIGO\BinaryKnapsack\BinaryKnapsack\obj\Debug\BinaryKnapsack.csprojAssemblyReference.cache
+C:\Users\jmfer\Documents\2020-1\METAHEURISTICAS\CÓDIGO\BinaryKnapsack\BinaryKnapsack\obj\Debug\BinaryKnapsack.csproj.CoreCompileInputs.cache
+C:\Users\jmfer\Documents\2020-1\METAHEURISTICAS\CÓDIGO\BinaryKnapsack\BinaryKnapsack\obj\Debug\BinaryKnapsack.exe
+C:\Users\jmfer\Documents\2020-1\METAHEURISTICAS\CÓDIGO\BinaryKnapsack\BinaryKnapsack\obj\Debug\BinaryKnapsack.pdb
