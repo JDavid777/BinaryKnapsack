@@ -91,6 +91,7 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
                 {
                     this.MyBestSolution = new Solution(s);
                 }
+                this.Curve.Add(s.Fitness);
                 if (Math.Abs(this.MyBestSolution.Fitness - MyKnapsack.OptimalKnown) < 1e-10)
                     break;
             }
@@ -122,6 +123,11 @@ namespace BinaryKnapsack.Metaheuristics.SimpleState
             }
             return maxUtilities;
         }
-
+        public override string ToString()
+        {
+            return "Guided Local Search";
+        }
     }
+
 }
+

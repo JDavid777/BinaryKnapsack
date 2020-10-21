@@ -38,17 +38,27 @@ namespace BinaryKnapsack
             var mhList = new List<Metaheuristic>()
             {
                 new HillClimbing(maxEFOs),
-                //new RandomSearch(maxEFOs),
+                new RandomSearch(maxEFOs),
                 new GuidedLocalSearch(maxEFOs, 0.5)
             };
 
-            Console.WriteLine($"{"Problem", 15} {"Best", 12} {"Hill Climbing", 30} {"Random Search", 35} {"Guided LS", 35}");
-            Console.WriteLine("      ---------------------------------------------------------------------------------------------------------------------------");
-            foreach (var myProblem in problemsList)
+
+            foreach (var myMetaHeuristic in mhList)
             {
-                Console.Write($"{myProblem.FileName, 15} {myProblem.OptimalKnown, 12:0.###}| ");
-                foreach (var myMetaHeuristic in mhList)
+                Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
+                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"{myMetaHeuristic.ToString(),60}");
+                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine($"|{"Problem",16} {"Best",8} {"Average Fitness",20} {"Standar Deviaton",20}{"Success Rate",20}{"Execution Time",20}|");
+                Console.ResetColor();
+
+
+                foreach (var myProblem in problemsList)
                 {
+                    Console.Write($"|{myProblem.FileName,15}|{myProblem.OptimalKnown,8:0.###}");
                     var listaFitness = new List<double>();
                     var timesList = new List<double>();
                     var timesFoundIdeal = 0;
@@ -66,13 +76,20 @@ namespace BinaryKnapsack
                     }
                     var succesRate = timesFoundIdeal * 100.0 / maximasRepeticiones;
                     var standarDeviation = StandarDeviation(listaFitness);
-                    Console.Write($"{listaFitness.Average(), 10:0.###} {standarDeviation,8:0.###} ({succesRate,4:0.#}) {timesList.Average(),11:0.#####}|");
+                    Console.WriteLine($"|{listaFitness.Average(),20:0.###}|{standarDeviation,20:0.#}|{succesRate,19:0.#}|{timesList.Average(),20:0.#####}|");
                 }
                 Console.WriteLine();
+                //foreach (var item in myMetaHeuristic.Curve)
+                //{
+                //    string dato = string.Format("{0},",item);
+                //    Console.Write(dato);
+                //}
+               
             }
-            Console.WriteLine("      --------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
             Console.ReadKey();
         }
+        
         private static double StandarDeviation(List<double> fitnessList)
         {
             int n = fitnessList.Count;
